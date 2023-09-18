@@ -1,0 +1,116 @@
+.header{
+    height: 100px;
+    background-color: black;
+    
+    .container{
+        max-width: 1200px;
+        margin:auto;
+    }
+
+    &-content{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 10px;
+        &-logo{
+            width:120px;
+            img{
+                width: 100%;
+            }
+        }
+        &-nav{
+
+            ul{
+                display: flex;
+                justify-content: center;
+                gap: 50px;
+                align-items: center;
+            li a{
+                list-style: none;
+                font-size: 30px;
+                color:#fff;
+                transition: 0.5s;
+            }
+           li  a:hover{
+               transform: scaleX(1.5);
+               color:rgb(105, 105, 196)
+            }
+        }
+
+    }
+   .hamburger{
+        display:none;
+        cursor: pointer;
+    .bar{
+           display: block;
+           width: 35px; 
+           height: 5px;
+           margin:5px auto;
+           background-color: #FFFFFF;
+        }
+    }
+     @media (max-width:1024px) {
+        padding-left: 16px;
+        padding-right: 16px;
+        .hamburger{
+            display: block;
+        }
+        .hamburger.active.bar:nth-child(2){
+            opacity: 0;
+        }
+        .hamburger.active.bar:nth-child(1){
+           transform: translateY(8px)rotate(45deg);
+        }
+        .hamburger.active.bar:nth-child(3){
+            transform: translateY(-8px)rotate(-45deg);
+        }
+        .header-content-nav{
+            position: fixed;
+            left: -250%;
+            top:0px;
+            background-color: black;
+            width: 250px;
+            height: 100vh;
+            text-align: center;
+            transition: 1s;
+            .closed{
+                color:#fff;
+                font-size: 26px;
+                list-style: none;
+                cursor: pointer;
+            }
+            ul{
+                flex-direction: column;
+            li a{
+                list-style: none;
+                font-size:30px;
+                color:#fff;
+                transition: 0.5s;
+                cursor: pointer;
+            }
+             
+          }
+         }
+         .header-content-nav.active{
+            left: 0;
+            ul{
+                padding-top: 10px;
+                .closed{
+                    padding-top: 10px;
+                    padding-right: 10px;
+                }
+                li{
+                    transition:all 0.5s;
+                }
+               li:hover{
+                   transform: scale(1.5);
+                   color:rgb(105, 105, 196);
+                   transition:all 0.5s;
+                   list-style: none;
+                }
+            }
+        }
+    }
+
+}
+}

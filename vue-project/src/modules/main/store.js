@@ -1,0 +1,110 @@
+﻿import axios from 'axios'
+import {host} from '../../utils/baseUrl'
+
+const statesMain={
+    quote:{
+        quote:"",
+        author:""
+    },
+    products:[],
+    category:[],
+    limit:30,
+    details:{
+        id:'',
+        title:'',
+        description:'',
+        price:'',
+        discountPercentage:'',
+        rating:'',
+        stock:'',
+        brand:'',
+        category:'',
+        thumbnail:'',
+        images:[]
+    }
+}
+const mutationsMain={
+    SET_QUOTE(state,value){
+        state.quote=value
+    },
+    SET_PRODUCTS(state,value){
+        state.products=value
+    },
+    SET_CATEGORY(state,value){
+        state.category=value
+    },
+    SET_LIMIT(state,value){
+        state.limit+=30
+    },
+    SET_DETAILS(state,value){
+        state.details=value
+    }
+    
+}
+const gettersMain={
+    getQuote:state=>state.quote,
+    getProducts:state=>state.products,
+    getCategory:state=>state.category,
+    getLimit:state=>state.limit,
+    getDetails:state=>state.details
+}
+const actionsMain={
+    fetchRandomQuote({commit}){
+       axios.get(`${host}/quotes/random`)
+       .then(({data})=>{
+        commit('SET_QUOTE',data)
+       })
+       .catch(err=>{
+        alert(err)
+       })
+    },
+    fetchSearchProducts({commit},value){
+        axios.get(`${host}/products/search?q=${value}`)
+        .then(({data})=>{
+         commit('SET_PRODUCTS',data.products)
+        })
+        .catch(err=>{
+         alert(err)
+        })
+    },
+    fetchCategory({commit}){
+        axios.get(`${host}/products/categories`)
+        .then(({data})=>{
+            data.unshift('Выбор категории')
+         commit('SET_CATEGORY', data)
+         console.log(data);
+        })
+        .catch(err=>{
+         alert(err)
+        })
+    },
+    fetchAllProducts({commit},limit){
+        axios.get(`${host}/products?limit=${limit}&skip=10`)
+        .then(({data})=>{
+         commit('SET_PRODUCTS',data.products)
+        })
+        .catch(err=>{
+         alert(err)
+        })
+    },
+    fetchProductsOfCategory({commit},category){
+        axios.get(`${host}/products/category/${category}`)
+        .then(({data})=>{
+         commit('SET_PRODUCTS',data.products)
+        })
+        .catch(err=>{
+         alert(err)
+        })
+    },
+    fetchSingleProducts({commit},id){
+        axios.get(`${host}/products/${id}`)
+        .then(({data})=>{
+            console.log(data)
+         commit('SET_DETAILS',data)
+        })
+        .catch(err=>{
+         alert(err)
+        })
+    }
+}
+export{statesMain,mutationsMain,actionsMain,gettersMain}
